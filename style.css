@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root{
+  --accent: #0ef;
+  --accent2: #007f8b;
+  --bg: #0a0f1f;
+  --card: #111729;
+  --glow: 0 0 12px rgba(0,255,255,0.55);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 1rem 1.5rem 0 1.5rem;
+  background: var(--bg);
+  color: #e7faff;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+
+header h1 {
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  text-shadow: var(--glow);
+}
+
+/* ELIMINADO: #hud */
+/*
+#hud {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow: var(--glow);
+  flex-wrap: wrap;
+}
+*/
+
+.videoView {
+  width: 850px;
+  max-width: 100%;
+  margin: 0 auto 1rem auto;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #0d1228, #141b33);
+  box-shadow:
+    0 0 18px rgba(0,255,255,0.25),
+    0 8px 22px rgba(0,0,0,0.45);
+  overflow: hidden;
+  padding: 0.8rem;
+  border: 2px solid rgba(0,255,255,0.25);
+  animation: softPulse 4s ease-in-out infinite;
+  position: relative;
+}
+
+.controls {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.controls button {
+  background: rgba(0,255,255,0.15);
+  border: 1px solid rgba(0,255,255,0.4);
+  color: var(--accent);
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+  text-shadow: var(--glow);
+  min-width: 120px;
+}
+
+.controls button:hover {
+  background: rgba(0,255,255,0.35);
+  transform: scale(1.08);
+  box-shadow: var(--glow);
+}
+
+#liveView > div { 
+  height: 480px;
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+}
+
+video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+  border-radius: 14px;
+  opacity: 0.55;
+  filter: contrast(1.3) saturate(1.4) brightness(1.1);
+  box-shadow: 0 0 25px rgba(0,255,255,0.32);
+}
+
+.output_canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  /* CAMBIO: Permitir clics para los botones en el canvas */
+  pointer-events: auto; 
+}
+
+
+/* ELIMINADO: .instructions ya no se usa */
+/*
+.instructions {
+  margin: 0 0 12px 0;
+  font-size: 1rem;
+  opacity: 0.9;
+  color: #b2faff;
+}
+*/
+
+
+.invisible {
+  display: none;
+}
+
+
+@keyframes softPulse {
+  0%   { box-shadow: 0 0 18px rgba(0,255,255,0.2); }
+  50%  { box-shadow: 0 0 35px rgba(0,255,255,0.38); }
+  100% { box-shadow: 0 0 18px rgba(0,255,255,0.2); }
+}
+
+
+/* Tablets */
+@media (max-width: 900px) {
+  header h1 { font-size: 1.6rem; }
+
+  #liveView > div {
+    height: 400px;
+  }
+}
+
+/* Móviles grandes */
+@media (max-width: 600px) {
+  body {
+    margin: 0.8rem;
+  }
+
+  .videoView {
+    padding: 0.6rem;
+    border-radius: 15px;
+  }
+
+  #liveView > div {
+    height: 320px;
+  }
+
+  .controls button {
+    min-width: 100px;
+    padding: 0.5rem 0.8rem;
+  }
+
+  header h1 {
+    font-size: 1.4rem;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 400px) {
+
+  header h1 {
+    font-size: 1.25rem;
+  }
+
+  #liveView > div {
+    height: 260px;
+  }
+
+  .controls {
+    gap: 8px;
+  }
+
+  .controls button {
+    min-width: 90px;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.8rem;
+  }
+
+  /* ELIMINADO: .instructions */
+
+}
+
+/* Extra pequeño (<= 330px) */
+@media (max-width: 330px) {
+
+  #liveView > div {
+    height: 220px;
+  }
+
+  .controls button {
+    min-width: 80px;
+    font-size: 0.75rem;
+  }
+}
