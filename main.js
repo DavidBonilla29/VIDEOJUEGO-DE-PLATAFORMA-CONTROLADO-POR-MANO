@@ -532,7 +532,7 @@ function draw() {
 
     // Mensaje de Espera / Carga
     if (gameState === GAME_STATE.WAITING) {
-        let msg = "Presiona INICIAR JUEGO para empezar.";
+        let msg = "Presiona INICIAR JUEGO ";
         if (!modelLoaded) {
             msg = "Cargando modelo de control por mano...";
         }
