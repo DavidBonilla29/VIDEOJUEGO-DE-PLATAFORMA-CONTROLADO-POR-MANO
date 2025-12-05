@@ -94,12 +94,13 @@ const levels = [
             { x: 200, y: 540, w: 100, h: 20 },
             { x: 380, y: 450, w: 80, h: 20 }, 
             { x: 500, y: 360, w: 60, h: 20 }, 
-            { x: 700, y: 280, w: 120, h: 20 }, 
+            { x: 650, y: 280, w: 170, h: 20 }, 
             { x: 950, y: 200, w: 80, h: 20 }  
         ],
         spikes: [
             { x: 550, y: 580, w: 40, h: 40 }, 
-            { x: 520, y: 320, w: 40, h: 40 } 
+            { x: 530, y: 320, w: 40, h: 40 },
+            { x: 830, y: 580, w: 40, h: 40 }
         ],
         door: { x: 1100, y: 120, w: 60, h: 60 }, 
         bg: "#e9f2ff"
@@ -555,13 +556,19 @@ function physicsStep() {
     player.vy += GRAVITY;
     player.vx *= FRICTION;
 
-    // límites laterales
-    if (player.x < 0) player.x = 0;
-    if (player.x + player.width > worldWidth) player.x = worldWidth - player.width;
-
     // aplicar velocidades
     player.x += player.vx;
     player.y += player.vy;
+
+    // límites laterales: aplicar después de mover y detener velocidad al chocar
+    if (player.x < 0) {
+        player.x = 0;
+        player.vx = 0;
+    }
+    if (player.x + player.width > worldWidth) {
+        player.x = worldWidth - player.width;
+        player.vx = 0;
+    }
 
     player.onGround = false;
 
@@ -635,13 +642,20 @@ async function predictWebcam() {
                 const landmarks = results.landmarks[0];
                 const indexTip = landmarks[8]; // {x, y, z} normalizados 0..1
 
-                // MOVER HORIZONTAL
-                const desiredWorldX = (1 - indexTip.x) * (worldWidth - player.width);
-                player.x += (desiredWorldX - player.x) * MOVE_LERP;
+
+                // --- MOVIMIENTO HORIZONTAL RELATIVO (tipo joystick virtual) ---
+                if (typeof predictWebcam.lastIndexX === 'undefined') {
+                    predictWebcam.lastIndexX = indexTip.x;
+                }
+                const dx = indexTip.x - predictWebcam.lastIndexX;
+                // Sensibilidad: puedes ajustar el factor multiplicador
+                const SENSIBILIDAD_HORIZONTAL = 205; // mucho más rápido
+                player.vx += -dx * SENSIBILIDAD_HORIZONTAL;
+                predictWebcam.lastIndexX = indexTip.x;
 
                 // Detectar "pulso" hacia arriba para salto
                 if (lastIndexY !== null) {
-                    const dy = lastIndexY - indexTip.y; 
+                    const dy = lastIndexY - indexTip.y;
                     const now = performance.now();
                     if (dy > JUMP_SENSITIVITY && player.onGround && (now - lastJumpTime) > JUMP_COOLDOWN_MS) {
                         player.vy = JUMP_FORCE;
