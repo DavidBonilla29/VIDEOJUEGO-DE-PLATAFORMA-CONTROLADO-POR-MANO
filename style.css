@@ -28,19 +28,6 @@ header h1 {
   text-shadow: var(--glow);
 }
 
-/* ELIMINADO: #hud */
-/*
-#hud {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 0.8rem;
-  font-weight: 700;
-  color: var(--accent);
-  text-shadow: var(--glow);
-  flex-wrap: wrap;
-}
-*/
 
 .videoView {
   width: 850px;
@@ -116,16 +103,6 @@ video {
 }
 
 
-/* ELIMINADO: .instructions ya no se usa */
-/*
-.instructions {
-  margin: 0 0 12px 0;
-  font-size: 1rem;
-  opacity: 0.9;
-  color: #b2faff;
-}
-*/
-
 
 .invisible {
   display: none;
@@ -194,7 +171,6 @@ video {
     font-size: 0.8rem;
   }
 
-  /* ELIMINADO: .instructions */
 
 }
 
