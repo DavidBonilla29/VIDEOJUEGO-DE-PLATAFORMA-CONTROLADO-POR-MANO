@@ -649,7 +649,7 @@ async function predictWebcam() {
                 }
                 const dx = indexTip.x - predictWebcam.lastIndexX;
                 // Sensibilidad: puedes ajustar el factor multiplicador
-                const SENSIBILIDAD_HORIZONTAL = 190; // mucho más rápido
+                const SENSIBILIDAD_HORIZONTAL = 195; // mucho más rápido
                 player.vx += -dx * SENSIBILIDAD_HORIZONTAL;
                 predictWebcam.lastIndexX = indexTip.x;
 
