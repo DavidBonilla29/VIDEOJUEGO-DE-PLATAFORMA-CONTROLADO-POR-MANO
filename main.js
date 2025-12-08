@@ -15,13 +15,11 @@ let modelLoaded = false;
 
 // ---------- Juego (física) ----------
 const GRAVITY = 1.1; 
-const FRICTION = 0.9;        
-const MOVE_LERP = 0.12;      
-const JUMP_FORCE = -17;      
+const FRICTION = 0.75;        
+const MOVE_LERP = 0.12;      
+const JUMP_FORCE = -17;      
 const JUMP_SENSITIVITY = 0.035; 
-const JUMP_COOLDOWN_MS = 400;  
-
-let lastIndexY = null;
+const JUMP_COOLDOWN_MS = 400;let lastIndexY = null;
 let lastJumpTime = 0;
 
 // Canvas / mundo
@@ -649,7 +647,7 @@ async function predictWebcam() {
                 }
                 const dx = indexTip.x - predictWebcam.lastIndexX;
                 // Sensibilidad: puedes ajustar el factor multiplicador
-                const SENSIBILIDAD_HORIZONTAL = 205; // mucho más rápido
+                const SENSIBILIDAD_HORIZONTAL = 80; // movimiento más controlado
                 player.vx += -dx * SENSIBILIDAD_HORIZONTAL;
                 predictWebcam.lastIndexX = indexTip.x;
 
